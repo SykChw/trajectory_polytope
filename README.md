@@ -91,9 +91,7 @@ $$
 be a ReLU neural network.
 
 We train:
-$$
-g_\theta(x,y,z,t) \approx \mathbf{1}[f(x,y,z,t) \ge 0]
-$$
+$$g_\theta(x,y,z,t) \approx \mathbf{1}[f(x,y,z,t) \ge 0]$$
 
 ---
 
