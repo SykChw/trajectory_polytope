@@ -1,9 +1,9 @@
 # Time-Evolving Polytopes from ReLU Networks
 
 This project learns a **time-dependent geometric object** defined implicitly by a function  
-\[
+$$
 f(x,y,z,t)
-\]  
+$$
 and reconstructs it as a sequence of **non-convex polytopes evolving over time** using a trained ReLU neural network.
 
 ---
@@ -12,20 +12,20 @@ and reconstructs it as a sequence of **non-convex polytopes evolving over time**
 
 We model a **family of 3D shapes evolving over time** using a neural network:
 
-- Input: \((x, y, z, t)\)
+- Input: $(x, y, z, t)$
 - Output: Binary classification (inside / outside)
 
 The model learns:
-\[
+$$
 \hat{y} = \mathbf{1}\big[(x,y,z,t) \in \mathcal{P}\big]
-\]
+$$
 
 where:
-\[
+$$
 \mathcal{P}_t = \{(x,y,z) \mid f(x,y,z,t) \ge 0\}
-\]
+$$
 
-We then reconstruct \(\mathcal{P}_t\) at each time \(t\) and visualize its evolution.
+We then reconstruct $\mathcal{P}_t$ at each time $t$ and visualize its evolution.
 
 ---
 
@@ -33,37 +33,37 @@ We then reconstruct \(\mathcal{P}_t\) at each time \(t\) and visualize its evolu
 
 Instead of explicitly modeling geometry, we use an **implicit representation**:
 
-\[
+$$
 f : \mathbb{R}^3 \times \mathbb{R} \to \mathbb{R}
-\]
+$$
 
-At each time \(t\), the shape is:
+At each time $t$, the shape is:
 
 - Interior:
-  \[
+  $$
   f(x,y,z,t) > 0
-  \]
+  $$
 
 - Surface:
-  \[
+  $$
   f(x,y,z,t) = 0
-  \]
+  $$
 
 - Exterior:
-  \[
+  $$
   f(x,y,z,t) < 0
-  \]
+  $$
 
 ---
 
 # What the Model Learns
 
 We train a ReLU network:
-\[
+$$
 \hat{f}(x,y,z,t) \approx \text{sign}(f(x,y,z,t))
-\]
+$$
 
-This induces a partition of \(\mathbb{R}^4\) into **piecewise-linear regions**.
+This induces a partition of $\mathbb{R}^4$ into **piecewise-linear regions**.
 
 ---
 
@@ -75,25 +75,25 @@ This induces a partition of \(\mathbb{R}^4\) into **piecewise-linear regions**.
 
 A time-dependent shape is defined as:
 
-\[
+$$
 \mathcal{P}_t = \{ x \in \mathbb{R}^3 \mid f(x,t) \ge 0 \}
-\]
+$$
 
 ---
 
 ## 2. Neural Approximation
 
 Let:
-\[
+$$
 g_\theta(x,y,z,t)
-\]
+$$
 
 be a ReLU neural network.
 
 We train:
-\[
+$$
 g_\theta(x,y,z,t) \approx \mathbf{1}[f(x,y,z,t) \ge 0]
-\]
+$$
 
 ---
 
@@ -101,14 +101,14 @@ g_\theta(x,y,z,t) \approx \mathbf{1}[f(x,y,z,t) \ge 0]
 
 A ReLU network partitions input space into regions:
 
-\[
+$$
 \mathbb{R}^4 = \bigcup_{i} R_i
-\]
+$$
 
 Within each region:
-\[
+$$
 g_\theta(x) = W_i x + b_i
-\]
+$$
 
 Thus the decision boundary is **piecewise linear**.
 
@@ -116,11 +116,11 @@ Thus the decision boundary is **piecewise linear**.
 
 ## 4. Extracted Shape
 
-At time \(t\):
+At time $t$:
 
-\[
+$$
 \mathcal{P}_t^{(model)} = \{ (x,y,z) \mid g_\theta(x,y,z,t) \ge 0 \}
-\]
+$$
 
 ---
 
@@ -128,19 +128,19 @@ At time \(t\):
 
 We approximate:
 
-\[
+$$
 \mathcal{P}_t \approx \{ x_i \mid g_\theta(x_i,t) \ge 0 \}
-\]
+$$
 
 ---
 
 ## 6. Alpha Shapes (Non-Convex Geometry)
 
-Given sampled points \(S\), we compute:
+Given sampled points $S$, we compute:
 
-\[
+$$
 \alpha\text{-shape}(S)
-\]
+$$
 
 which approximates the underlying geometry.
 
@@ -150,9 +150,9 @@ which approximates the underlying geometry.
 
 We compute:
 
-\[
+$$
 V(t) = \text{Vol}(\mathcal{P}_t)
-\]
+$$
 
 to track geometric evolution.
 
